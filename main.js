@@ -1,102 +1,59 @@
-setInterval(function() {
-
-})
-
-
-function move() {
-  coordinates = newPosition()
-  $('.sheep').append($('<img src="sheep.png" alt="">'))
-
-  $("img").each(function() {
-
-  $("img").animate({
-       left: coordinates[0],
-       top: coordinates[1]
-   }, 10000, function() {
-     move()
-   })
- }
-  )
-}
-for (var i = 0; i < 2; i++) { //2 is the amount to input how many sheep
-  move()
-  // sfjd
-}
-
-
-
-
-function newPosition() {
-  left = Math.floor(1030 * Math.random())
-  y = Math.floor(450 * Math.random())
-  leftTop = [left, y]
-  return leftTop
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// console.log($(window).width())
-//  console.log($('.a').offset())
-
-// animateDiv();
-// //
-// //
-//  function makeNewPosition(){
+// setInterval(function() {
 //
-//      // Get viewport dimensions (remove the dimension of the div)
-//      var h = $(window).height() - 50;
-//      var w = $(window).width() - 50;
+// })
 //
-//      var nh = Math.floor(Math.random() * h);
-//      var nw = Math.floor(Math.random() * w);
+// $imgSheep = $('<img src="sheep.png" alt="">')
+// $divSquare = $('.square')
+// // '<div class="square"></div>'
 //
-//      return [nh,nw];
-//
-//  }
-//
-//  function animateDiv(){
-//      var newq = makeNewPosition();
-//      var oldq = $('.a').offset();
-//      //var speed = calcSpeed([oldq.top, oldq.left], newq);
-//
-//      $('.a').animate({ top: newq[0], left: newq[1] }, 5590, function(){
-//        animateDiv();
-//      });
-//
-//  };
-//
-//  function calcSpeed(prev, next) {
-//
-//      var x = Math.abs(prev[1] - next[1]);
-//      var y = Math.abs(prev[0] - next[0]);
-//
-//      var greatest = x > y ? x : y;
-//
-//      var speedModifier = 0.1;
-//
-//      var speed = Math.ceil(greatest/speedModifier);
-//
-//      return speed;
+// for (var i = 0; i < 3; i++) { //2 is the amount to input how many sheep
+//   $('.sheep').append('<div class="square"></div>')
+//   move()
+//   coordinates = newPosition()
 // }
+//
+// function move() {
+//
+//
+//
+//   $('div').each(function() {
+//
+//   $('div').animate({
+//        left: coordinates[0],
+//        top: coordinates[1]
+//    }, 1000, function() {
+//      move()
+//    })
+//  }
+//   )
+// }
+//
+//
+//
+//
+//
+// function newPosition() {
+//   left = Math.floor(1030 * Math.random())
+//   y = Math.floor(450 * Math.random())
+//   leftTop = [left, y]
+//   return leftTop
+// }
+
+
+$buttons = $('button').on('click', randomize)
+
+// var worldwide = randomize()
+
+function randomize() {
+  console.log('Running')
+  var ex = Math.floor(Math.random() * 6) + 1;
+  console.log(ex);
+  //return ex;
+  if (ex === 1) {
+    movement = parseInt($('.piece').css("left")) + 73
+    // $('.piece').css("left", movement)
+    $('.piece').animate({
+      left: movement
+    }, 1000)
+  }
+}

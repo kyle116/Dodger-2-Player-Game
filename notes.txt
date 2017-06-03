@@ -5,7 +5,180 @@ window.onload = choosePic; //might not be necessary
 
 var myPix = new Array("images/lion.jpg","images/tiger.jpg","images/bear.jpg");
 
+// setInterval(function() {
+//
+// })
+//
+// $imgSheep = $('<img src="sheep.png" alt="">')
+// $divSquare = $('.square')
+// // '<div class="square"></div>'
+//
+// for (var i = 0; i < 3; i++) { //2 is the amount to input how many sheep
+//   $('.sheep').append('<div class="square"></div>')
+//   move()
+//   coordinates = newPosition()
+// }
+//
+// function move() {
+//
+//
+//
+//   $('div').each(function() {
+//
+//   $('div').animate({
+//        left: coordinates[0],
+//        top: coordinates[1]
+//    }, 1000, function() {
+//      move()
+//    })
+//  }
+//   )
+// }
+//
+//
+//
+//
+//
+// function newPosition() {
+//   left = Math.floor(1030 * Math.random())
+//   y = Math.floor(450 * Math.random())
+//   leftTop = [left, y]
+//   return leftTop
+// }
+
 function choosePic() {
      var randomNum = Math.floor(Math.random() * myPix.length);
      document.getElementById("myPicture").src = myPix[randomNum];
 
+
+     <div class="sheep">
+       <div class="up">
+         <div class="cornerTL"></div>
+         <div class="tileT"></div>
+         <div class="tileT"></div>
+         <div class="tileT"></div>
+         <div class="tileT"></div>
+         <div class="tileT"></div>
+         <div class="tileT"></div>
+         <div class="tileT"></div>
+         <div class="tileT"></div>
+         <div class="tileT"></div>
+         <div class="cornerTR"></div>
+       </div>
+       <div class="left">
+         <div class="tileL"></div>
+           <div class="middle"></div>
+         <div class="tileRRR"></div>
+         <div class="tileL"></div>
+         <div class="tileL"></div>
+         <div class="tileL"></div>
+         <div class="tileL"></div>
+         <div class="tileL"></div>
+         <div class="tileL"></div>
+         <div class="tileL"></div>
+         <div class="cornerBL"></div>
+       </div>
+       <div class="middleSquare"></div>
+       <div class="right">
+         <div class="tileR"></div>
+         <div class="tileR"></div>
+         <div class="tileR"></div>
+         <div class="tileR"></div>
+         <div class="tileR"></div>
+         <div class="tileR"></div>
+         <div class="tileR"></div>
+         <div class="tileR"></div>
+         <div class="tileR"></div>
+         <div class="cornerBR"></div>
+       </div>
+     </div>
+
+     .cornerTL {
+       width: 40px;
+       height: 40px;
+       display: inline-block;
+       float: left;
+       border: 2px solid black;
+     }
+
+     .cornerTR {
+       width: 40px;
+       height: 40px;
+       display: inline-block;
+       float: left;
+       border-top: 2px solid black;
+       border-right: 2px solid black;
+       border-bottom: 2px solid black;
+     }
+
+     .tileT {
+       width: 20px;
+       height: 40px;
+       display: inline-block;
+       float: left;
+       border-top: 2px solid black;
+       border-right: 2px solid black;
+       border-bottom: 2px solid black;
+     }
+
+     .tileL {
+       clear: both;
+       position: relative;
+       width: 40px;
+       height: 20px;
+       display: inline-block;
+       float: left;
+       border-left: 2px solid black;
+       border-right: 2px solid black;
+       border-bottom: 2px solid black;
+     }
+
+     .cornerBL {
+       clear: both;
+       position: relative;
+       width: 40px;
+       height: 40px;
+       display: inline-block;
+       float: left;
+       border-left: 2px solid black;
+       border-right: 2px solid black;
+       border-bottom: 2px solid black;
+     }
+
+     .middle {
+       display: inline-block;
+       width: 196px;
+     }
+
+     .tileR {
+       clear: both;
+       /*position: relative;*/
+       width: 40px;
+       height: 20px;
+       /*display: inline-block;*/
+       float: left;
+       border-left: 2px solid black;
+       border-right: 2px solid black;
+       border-bottom: 2px solid black;
+     }
+
+     .cornerBR {
+     clear: both;
+       /*position: relative;*/
+       width: 40px;
+       height: 40px;
+       /*display: inline-block;*/
+       float: left;
+       border-left: 2px solid black;
+       border-right: 2px solid black;
+       border-bottom: 2px solid black;
+     }
+
+     .up {
+       /*width: 286px;*/
+       display: inline-block;
+     }
+
+
+to move from square to small box will be 73
+to move small box from small box 62
