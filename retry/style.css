@@ -1,185 +1,29 @@
-* { margin:0; padding:0; box-sizing:border-box; }
+html, body {margin: 0; height: 100%; overflow: hidden}
 
-body {
-  margin: 1px;
+#container{
+	width:80%;
+	height:60%;
+  display: block;
+	text-align:center;
+  margin: 0 auto;
+}
+#wrapper{
+  left:0px;
+	width:1000px;
+	height:600px;
+	border:1px solid lime;
+	margin:0 auto;
+	background-color:black;
 }
 
-@font-face {
-  font-family: 'KabobLight Regular';
-  src: url('KabobLight Regular.ttf');
-}
-
-div {
-  /*width: 80px;
-  height: 80px;*/
-  display: inline-block;
-
-  position: relative;
-}
-
-
-.cornerTL {
-  width: 80px;
-  height: 80px;
-  display: inline-block;
+#player1 {
   float: left;
-  border: 2px solid black;
   clear: both;
 }
-
-.cornerTR {
-  width: 80px;
-  height: 80px;
-  display: inline-block;
-  float: left;
-  border-top: 2px solid black;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
+body{
+	background-color:black;
 }
-
-
-
-
-.middleSpace {
-  display: inline-block;
-  width: 556px;
-  height: 60px;
-  float: left;
-}
-
-.cornerBL {
-  width: 80px;
-  height: 80px;
-  display: inline-block;
-  float: left;
-  border-right: 2px solid black;
-  border-left: 2px solid black;
-  border-bottom: 2px solid black;
-  clear: both;
-}
-
-.cornerBR {
-  width: 80px;
-  height: 80px;
-  display: inline-block;
-  float: left;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-}
-
-.tileB, .square {
-  width: 60px;
-  height: 80px;
-  display: inline-block;
-  float: left;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-}
-
-.middleSpaceB {
-  display: inline-block;
-  width: 556px;
-  height: 60px;
-  float: left;
-  border-bottom: 2px solid black;
-}
-
-.piece {
-  width: 10px;
-  height: 10px;
-  top: 35px;
-  left: 35px;
-  position: absolute;
-  display: inline-block;
-  border: 2px solid red;
-}
-
-/* Color properties bottom row */
-.purple, .lblue, .pink {
-  width: 60px;
-  height: 16px;
-  border-bottom: 2px solid black;
-}
-
-/* Color properties top row */
-
-
-/* Color properties left side */
-
-
-/* Street Colors */
-.purple {background-color: purple;}
-.lblue {background-color: lightblue;}
-/*.red {background-color: red;}
-.yellow {background-color: yellow;}*/
-.pink {background-color: hotpink;}
-/*.blue {background-color: blue;}*/
-
-/* Street properties top/bottom */
-.baltic, .connecticut, .virginia {
-  width: 60px;
-  height: 48px;
-  font-size: 8px;
-  font-family: 'KabobLight Regular', sans-serif;
-  text-align: center;
-}
-
-/* Street properties side */
-
-
-/* Top/Bottom Streets */
-.baltic, .connecticut, .virginia {
-  padding-top: 4px;
-}
-
-/* Street properties left/right */
-
-
-/* Color properties bottom row */
-.purple, .lblue, .pink {
-  width: 60px;
-  height: 16px;
-  border-bottom: 2px solid black;
-}
-
-/* Color properties top row */
-
-.money, .moneySide {
-  width: 60px;
-  height: 10px;
-  font-size: 8px;
-  font-family: 'KabobLight Regular', sans-serif;
-  text-align: center;
-}
-
-/*.moneySide, .pink, .virginia {
-  float: left;
-}*/
-
-/*.moneySide {
-  width: 10px;
-  height: 60px;
-  font-size: 8px;
-  font-family: 'KabobLight Regular', sans-serif;
-  text-align: center;
-}*/
-
-.square {transform: rotate(90deg);}
-
-
-.tileB > *, .square {
-  display: inline-block;
-  vertical-align: top;
-  float: left; /* float/clear clears the white spacing in top row */
-  clear: both;
-}
-
-/* ALL things money/street/color */
-.baltic, .purple, .money, .pink, .virginia, .moneySide {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.square {
-  margin-bottom: 10px;
+#waveNum{
+	color:white;
+	font-size:200%;
 }
