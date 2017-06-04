@@ -182,3 +182,6 @@ function choosePic() {
 
 to move from square to small box will be 73
 to move small box from small box 62
+container dimensions 724 x 724
+corner mid to corner mid 654px
+to mid of square 35px

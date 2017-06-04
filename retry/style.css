@@ -1,3 +1,5 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
   margin: 1px;
 }
@@ -35,36 +37,8 @@ div {
   border-bottom: 2px solid black;
 }
 
-.tileT {
-  width: 60px;
-  height: 80px;
-  display: inline-block;
-  float: left;
-  border-top: 2px solid black;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-}
 
-.square {
-  display: inline-block;
-  width: 80px;
-  height: 60px;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-  float: left;
-  clear: both;
-}
 
-.square1 {
-  display: inline-block;
-  width: 80px;
-  height: 60px;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-  float: left;
-}
 
 .middleSpace {
   display: inline-block;
@@ -91,10 +65,9 @@ div {
   float: left;
   border-right: 2px solid black;
   border-bottom: 2px solid black;
-
 }
 
-.tileB {
+.tileB, .square {
   width: 60px;
   height: 80px;
   display: inline-block;
@@ -114,45 +87,36 @@ div {
 .piece {
   width: 10px;
   height: 10px;
-  top: 677px;
-  left: 677px;
+  top: 35px;
+  left: 35px;
   position: absolute;
   display: inline-block;
   border: 2px solid red;
 }
 
 /* Color properties bottom row */
-.purple, .lblue, .blue {
+.purple, .lblue, .pink {
   width: 60px;
   height: 16px;
   border-bottom: 2px solid black;
 }
 
 /* Color properties top row */
-.yellow, .red {
-  width: 60px;
-  height: 16px;
-  border-top: 2px solid black;
-}
+
 
 /* Color properties left side */
-.pink {
-  width: 16px;
-  height: 60px;
-  border-left: 2px solid black;
-  float: left;
-}
+
 
 /* Street Colors */
 .purple {background-color: purple;}
 .lblue {background-color: lightblue;}
-.red {background-color: red;}
-.yellow {background-color: yellow;}
+/*.red {background-color: red;}
+.yellow {background-color: yellow;}*/
 .pink {background-color: hotpink;}
-.blue {background-color: blue;}
+/*.blue {background-color: blue;}*/
 
 /* Street properties top/bottom */
-.baltic, .connecticut, .illinois, .marvin, .boardwalk {
+.baltic, .connecticut, .virginia {
   width: 60px;
   height: 48px;
   font-size: 8px;
@@ -161,17 +125,10 @@ div {
 }
 
 /* Street properties side */
-.virginia {
-  width: 48px;
-  height: 60px;
-  font-size: 8px;
-  font-family: 'KabobLight Regular', sans-serif;
-  text-align: center;
-  padding-right: 4px;
-}
+
 
 /* Top/Bottom Streets */
-.baltic, .connecticut, .illinois, .marvin, .boardwalk {
+.baltic, .connecticut, .virginia {
   padding-top: 4px;
 }
 
@@ -179,18 +136,13 @@ div {
 
 
 /* Color properties bottom row */
-.purple, .lblue, .blue {
+.purple, .lblue, .pink {
   width: 60px;
   height: 16px;
   border-bottom: 2px solid black;
 }
 
 /* Color properties top row */
-.yellow, .red {
-  width: 60px;
-  height: 16px;
-  border-top: 2px solid black;
-}
 
 .money, .moneySide {
   width: 60px;
@@ -212,49 +164,22 @@ div {
   text-align: center;
 }*/
 
-/*.text {transform: rotate(90deg);}*/
-.big {transform: rotate(-90deg);}
-.marvin, .illinois {transform:rotate(-180deg)}
+.square {transform: rotate(90deg);}
 
-.tileB > *, .tileT > *, .blue, .boardwalk, .moneySide {
+
+.tileB > *, .square {
   display: inline-block;
   vertical-align: top;
   float: left; /* float/clear clears the white spacing in top row */
   clear: both;
-  text-align: center;
 }
 
 /* ALL things money/street/color */
-.baltic, .purple, .money, .red, .yellow, .blue, .boardwalk {
+.baltic, .purple, .money, .pink, .virginia, .moneySide {
   display: inline-block;
   vertical-align: top;
 }
 
-
-
-.text {
-  display: inline-block;
-
-}
-
-.big {
-  display: inline-block;
-  vertical-align: top;
-  float: left;
-  clear: both;
-  margin-left: 10px;
-}
-
-.big > * {
-  margin: 0;
-  position: relative;
-}
-
-.newP {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border: 2px solid red;
-  position: absolute;
-  vertical-align: bottom;
+.square {
+  margin-bottom: 10px;
 }
