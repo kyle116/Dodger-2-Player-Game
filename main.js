@@ -20,12 +20,13 @@ function startGame() {
   //     console.log("dissapear")
   //   }
   // }, 2000)
-
+  checker()
+  randomFloat()
 
 }
 
 function createPlayer(l,t,id,pos,color){
-	this.speed = 3;
+	this.speed = 3; // this makes it iterate over 1px but any increase and it will skip over certain px creating and issue with the checker for rocks
 	this.width = 25;
 	this.height = 25;
 	this.left = l;
@@ -105,27 +106,45 @@ function update(){
 
 function randomFloat() {
   //$('.test').style.top
-  leftR = parseInt(Math.random()*2) + parseInt(Math.random()*-2);
-  topR = parseInt(Math.random()*2) + parseInt(Math.random()*-2);
+  leftR = parseInt(Math.random()*2);
+  topR = parseInt(Math.random()*2);
   //if topR gets to certain top value start going negative same for left
 
-  newTop = parseInt(document.getElementsByClassName('rock')[0].style.top) + topR;
-  document.getElementsByClassName('rock')[0].style.top = newTop + "px"
-  newLeft = parseInt(document.getElementsByClassName('rock')[0].style.top) + leftR;
+  // newTop = parseInt(document.getElementsByClassName('rock')[0].style.top) + topR;
+  // document.getElementsByClassName('rock')[0].style.top = newTop + "px"
+  newLeft = parseInt(document.getElementsByClassName('rock')[0].style.left) + leftR;
   document.getElementsByClassName('rock')[0].style.left = newLeft + "px"
   requestAnimationFrame(randomFloat);
 }
-$rocks = $("<div class=rock/>")
-  .css({"backgroundColor":"red","height":"10px","width":"10px","left":"10px","top":"10px","position":"relative"})
-$('#wrapper').append($rocks)
-function checker() {
-  console.log('up')
-  if (document.getElementById(player.id).style.left === document.getElementsByClassName('rock')[0].style.left) {
-  console.log('works');
+
+function generateRocks() {
+  sideSelector = Math.floor(Math.random()*2)+1;
+  randSide = ["1020px", "-20px"];
+  $rocks = $("<div class=rock/>")
+    .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[sideSelector],"top":"10px","position":"relative"})
+  $('#wrapper').append($rocks)
 }
+generateRocks()
+
+function checker() { //checks to see if player touches points
+  console.log('up')
+  yellowPoint = document.getElementsByClassName("point")
+  for (var i = 0; i < yellowPoint.length; i++) {
+    if (parseInt(document.getElementById(player.id).style.left) - 3 <= parseInt(yellowPoint[i].style.left) && parseInt(document.getElementById(player.id).style.left) + 3 >= parseInt(yellowPoint[i].style.left)) {
+    console.log('works');
+    document.getElementById("wrapper").removeChild(yellowPoint[i])
+    }
+  }
+  rocks = document.getElementsByClassName("rock")
+  for (var i = 0; i < yellowPoint.length; i++) {
+    if (parseInt(document.getElementById(player.id).style.left) - 3 <= parseInt(rocks[i].style.left) && parseInt(document.getElementById(player.id).style.left) + 3 >= parseInt(rocks[i].style.left)) {
+    console.log('works');
+    document.getElementById("wrapper").removeChild(document.getElementById(player.id)) // **issue with removing since js checks player1
+    }
+  }
 requestAnimationFrame(checker)
 }
-// checker()
+
 
 function blockade(){
 	var elemLeft = parseInt($('#wrapper').css('left'));
