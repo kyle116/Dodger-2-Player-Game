@@ -1,0 +1,29 @@
+when making the red rock collision with player, take account for positioning a little off due to 10px size of red rocks
+
+Bottom
+if rock top > 604 && rock left < 502
+  then shift left+ , top-
+
+if rock top > 604 && rock left > 502
+  then shift left- , top-
+
+Right
+if rock left > 1004 && rock top < 302
+  then shift left- , top+
+
+if rock left > 1004 && rock top > 302
+  then shift left- , top-
+
+Left
+if rock left < 0 && rock top < 302
+  then shift left+ , top+
+
+if rock left < 0 && rock top > 302
+  then shift left+ , top-
+
+Top
+if rock top < 0 && rock left < 502
+  then shift left+ , top+
+
+if rock top < 0 && rock left > 502
+  then shift left- , top+

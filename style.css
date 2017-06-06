@@ -1,44 +1,46 @@
-html, body {margin: 0; height: 100%; overflow: hidden}
+/*html, body {margin: 0; height: 100%; overflow: hidden}*/
 
-#container{
+/*#container{
 	width:80%;
 	height:60%;
-  display: block;
+	position:absolute;
 	text-align:center;
-  margin: 0 auto;
+}*/
 
-}
 #wrapper{
-  left:0px;
-	width:1000px; /* 100% */
+	left:0px;
+	width:1000px;
 	height:600px;
 	border:1px solid lime;
-	margin:0 auto;
 	background-color:black;
-
+  display: inline-block;
 }
 
 #player1, .point {
   float: left;
   clear: both;
 }
+
 body{
 	background-color:black;
 }
-#waveNum{
+
+#container {
+  display: inline-block;
+  width: 90%;
+  /*padding-left: 30px;
+  padding-top: 30px;*/
+}
+
+#ps1, #ps2 {
 	color:white;
-	font-size:200%;
+	font-size:100%;
+  display: inline-block;
+  float: right;
+  clear: both;
 }
 
-.point {
-  overflow: auto;
-}
-
-#test {
-  background-color: red;
-  height: 10px;
-  width: 10px;
-  left: 50px;
-  top: 10px;
-  position: relative;
+input {
+  display: inline-block;
+  float: right;
 }

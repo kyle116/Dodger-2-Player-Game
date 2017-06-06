@@ -1,5 +1,8 @@
 var keyArray = [];
-var currentWave = 1;
+// var currentWave = 1;
+var pointArray = [];
+var player1Score = 0;
+var player2Score = 0;
 // window.onload = function() {
   initiate();
   update();
@@ -13,36 +16,44 @@ function initiate(){
 	player2 = new createPlayer(150,0,"player2","relative","green");
 }
 
+// starts at startGame() then goes to push in pointArray of new created point objects
 function startGame() {
   // setInterval (function() {
-    point();
+    // point();
     // if (parseInt(player.left) === $('.point').position().left) { //**wont equal right now since the random point isnt working
   //     console.log("dissapear")
   //   }
   // }, 2000)
-  checker()
-  randomFloat()
-
+  // checker()
+  // randomFloat()
+  for(var i = 0;i<5;i++){
+		pointArray.push(new point(i));
+    // if div.point <= 2 then start returning more points
+	}
+  // rockGenerator()
 }
 
 function createPlayer(l,t,id,pos,color){
-	this.speed = 3; // this makes it iterate over 1px but any increase and it will skip over certain px creating and issue with the checker for rocks
+	this.speed = 3; // this makes it iterate over 3px but any increase and it will skip over certain px creating and issue with the checker for rocks
 	this.width = 25;
 	this.height = 25;
 	this.left = l;
 	this.top = t;
 	this.id = id;
-	this.model = $("<div id=" + id + "/>")
+	$user = $("<div id=" + id + "/>")
 		.css({"backgroundColor":color,"height":this.height,"width":this.width,"left":this.left,"top":this.top,"position":pos})
-		// .attr({"id":this.id})
-  $('#wrapper').append($(this.model));
+  $('#wrapper').append($user);
 }
 
-function point(){ //something about this function spawns the yellow dots but slowly goes lower and lower
-  leftP = parseInt(Math.random()*970);
-  topP = parseInt(Math.random()*580);
+// point creates an object in the pointArray also appends div.point to div.wrapper
+function point(id){ //something about this function spawns the yellow dots but slowly goes lower and lower
+  this.left = parseInt(Math.random()*(970) + 10);
+	this.top = parseInt(Math.random()*580 + 10);
+  this.id = id;
+	this.width = 10;
+	this.height = 10;
   $points = $("<div class=point/>")
-    .css({"backgroundColor":"yellow","height":"10px","width":"10px","left":leftP,"top":topP,"position":"relative"})
+    .css({"backgroundColor":"yellow","height":"20px","width":"20px","left":this.left,"top":this.top,"position":"absolute"})
   $('#wrapper').append($points)
 }
 
@@ -100,88 +111,263 @@ function update(){
 		player2.top = newTop;
 		document.getElementById(player2.id).style.top = newTop;
 	}
+
   blockade();
 	requestAnimationFrame(update);
 }
 
+
+
+
+
 function randomFloat() {
-  //$('.test').style.top
+
   leftR = parseInt(Math.random()*2);
-  topR = parseInt(Math.random()*2);
+  topR = 2 //parseInt(Math.random()*2);
   //if topR gets to certain top value start going negative same for left
 
-  // newTop = parseInt(document.getElementsByClassName('rock')[0].style.top) + topR;
-  // document.getElementsByClassName('rock')[0].style.top = newTop + "px"
-  newLeft = parseInt(document.getElementsByClassName('rock')[0].style.left) + leftR;
-  document.getElementsByClassName('rock')[0].style.left = newLeft + "px"
+  // need to add for loop to cycle through the rocks
+  for (var i = 0; i < $('.rock').length; i++) {
+    leftR = parseInt(Math.random()*4) + 1;
+    topR = 2
+
+    newTop = parseInt(document.getElementsByClassName('rock')[i].style.top) + topR;
+    document.getElementsByClassName('rock')[i].style.top = newTop + "px"
+    newLeft = parseInt(document.getElementsByClassName('rock')[i].style.left) + leftR;
+    document.getElementsByClassName('rock')[i].style.left = newLeft + "px"
+
+  }
   requestAnimationFrame(randomFloat);
 }
 
-function generateRocks() {
-  sideSelector = Math.floor(Math.random()*2)+1;
-  randSide = ["1020px", "-20px"];
-  $rocks = $("<div class=rock/>")
-    .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[sideSelector],"top":"10px","position":"relative"})
-  $('#wrapper').append($rocks)
-}
-generateRocks()
+function createRock(id){
+  leftRight = [];
+  topBottom = [];
+  positionArray = [];
+  //have rocks spawn between these numbers
+  randRight = Math.floor(Math.random() * (1030 - 1020) + 1020)
+  randBot = Math.floor(Math.random() * (630 - 620) + 620)
+  randTop = Math.floor(Math.random() * (-30-(-20)) + (-20))
+  randLeft = Math.floor(Math.random() * (-30-(-20)) + (-20))
 
-function checker() { //checks to see if player touches points
-  console.log('up')
-  yellowPoint = document.getElementsByClassName("point")
-  for (var i = 0; i < yellowPoint.length; i++) {
-    if (parseInt(document.getElementById(player.id).style.left) - 3 <= parseInt(yellowPoint[i].style.left) && parseInt(document.getElementById(player.id).style.left) + 3 >= parseInt(yellowPoint[i].style.left)) {
-    console.log('works');
-    document.getElementById("wrapper").removeChild(yellowPoint[i])
-    }
+  leftPos = Math.floor(Math.random() * (1004 - 0) + 0)
+  topPos = Math.floor(Math.random() * (604 - 0) + 0)
+  leftRight.push(randRight, randLeft)
+  topBottom.push(randTop, randBot)
+  function rand01() {
+    return Math.round(Math.random())
   }
-  rocks = document.getElementsByClassName("rock")
-  for (var i = 0; i < yellowPoint.length; i++) {
-    if (parseInt(document.getElementById(player.id).style.left) - 3 <= parseInt(rocks[i].style.left) && parseInt(document.getElementById(player.id).style.left) + 3 >= parseInt(rocks[i].style.left)) {
-    console.log('works');
-    document.getElementById("wrapper").removeChild(document.getElementById(player.id)) // **issue with removing since js checks player1
-    }
+  positionArray.push(leftRight[rand01()],topBottom[rand01()])
+  clone = positionArray[rand01()]
+  if (clone === positionArray[0]) {
+    positionArray.splice(1, 1)
+    positionArray.push(topPos)
   }
-requestAnimationFrame(checker)
+  if (clone === positionArray[1]) {
+    positionArray.splice(0, 1)
+    positionArray.unshift(leftPos) //test positions randomizer
+  }
+	this.speed = 3; // this makes it iterate over 3px but any increase and it will skip over certain px creating and issue with the checker for rocks
+	this.width = 10;
+	this.height = 10;
+	this.left = positionArray[0];
+	this.top = positionArray[1];
+	this.id = id;
+	$rock = $("<div id=" + id + "/>")
+		.css({"backgroundColor":"red","height":this.height,"width":this.width,"left":this.left+"px","top":this.top+"px","position":"absolute"})
+  $('#wrapper').append($rock);
+}
+
+// function rockGenerator() {
+//   leftRight = [];
+//   topBottom = [];
+//   positionArray = [];
+//   //have rocks spawn between these numbers
+//   randRight = Math.floor(Math.random() * (1030 - 1020) + 1020)
+//   randBot = Math.floor(Math.random() * (630 - 620) + 620)
+//   randTop = Math.floor(Math.random() * (-30-(-20)) + (-20))
+//   randLeft = Math.floor(Math.random() * (-30-(-20)) + (-20))
+//
+//   leftPos = Math.floor(Math.random() * (1004 - 0) + 0)
+//   topPos = Math.floor(Math.random() * (604 - 0) + 0)
+//   leftRight.push(randRight, randLeft)
+//   topBottom.push(randTop, randBot)
+//   function rand01() {
+//     return Math.round(Math.random())
+//   }
+//   positionArray.push(leftRight[rand01()],topBottom[rand01()])
+//   clone = positionArray[rand01()]
+//   if (clone === positionArray[0]) {
+//     positionArray.splice(1, 1)
+//     positionArray.push(topPos)
+//   }
+//   if (clone === positionArray[1]) {
+//     positionArray.splice(0, 1)
+//     positionArray.unshift(leftPos) //test positions randomizer
+//   }
+//   $rocks = $("<div class=rock/>")
+//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":positionArray[0]+"px","top":positionArray[1]+"px","position":"relative","display":"inline-block", "position":"absolute"})
+//     $('#wrapper').append($rocks)
+// }
+
+function rockMove() {
+  $rocks = $('.rock')
+
+  for (i = 0; i < $rocks.length; i++) {
+    rockTop = parseInt($rocks[i].style.top)
+    rockLeft = parseInt($rocks[i].style.left)
+
+    leftR = 2 //parseInt(Math.random()*4) + 1;
+    topR = -2
+
+    //bottom
+    if (parseInt($rocks[i].style.top) > 604 && parseInt($rocks[i].style.left) < 502) {
+      // content then shift left+ , top-
+      // function mover() {
+        newTop = rockTop + topR;
+        this.$rocks[i].style.top = newTop + "px"
+        newLeft = rockLeft + leftR;
+        this.$rocks[i].style.left = newLeft + "px"
+      //   requestAnimationFrame(mover)
+      // }
+      // mover()
+    }
+    if (rockTop > 604 && rockLeft > 502) {
+      // content then shift left- , top-
+    }
+
+    //right
+    if (rockLeft > 1004 && rockTop < 302) {
+      // content then shift left- , top+
+    }
+    if (rockLeft > 1004 && rockTop > 302) {
+      // content then shift left- , top-
+    }
+
+    //left
+    if (rockLeft < 0 && rockTop < 302) {
+      // content then shift left+ , top+
+    }
+    if (rockLeft < 0 && rockTop > 302) {
+      // content then shift left+ , top-
+    }
+
+    //top
+    if (rockTop < 0 && rockLeft < 502) {
+      // content then shift left+ , top+
+    }
+    if (rockTop < 0 && rockLeft > 502) {
+      // content then shift left- , top+
+    }
+
+
+  }
+  requestAnimationFrame(rockMove)
 }
 
 
-function blockade(){
+
+
+// function checker() { //checks to see if player touches points
+//   console.log('up')
+//   yellowPoint = document.getElementsByClassName("point")
+//   for (var i = 0; i < yellowPoint.length; i++) {
+//     if (parseInt(document.getElementById(player.id).style.left) - 3 <= parseInt(yellowPoint[i].style.left) && parseInt(document.getElementById(player.id).style.left) + 3 >= parseInt(yellowPoint[i].style.left)) {
+//     console.log('works');
+//     document.getElementById("wrapper").removeChild(yellowPoint[i])
+//     }
+//   }
+//   rocks = document.getElementsByClassName("rock")
+//   for (var i = 0; i < yellowPoint.length; i++) {
+//     if (parseInt(document.getElementById(player.id).style.left) - 3 <= parseInt(rocks[i].style.left) && parseInt(document.getElementById(player.id).style.left) + 3 >= parseInt(rocks[i].style.left)) {
+//     console.log('works');
+//     document.getElementById("wrapper").removeChild(document.getElementById(player.id)) // **issue with removing since js checks player1
+//     }
+//   }
+// requestAnimationFrame(checker)
+// }
+
+
+function blockade() {
 	var elemLeft = parseInt($('#wrapper').css('left'));
 	var elemWidth = parseInt($('#wrapper').css('width'));
 	var elemTop= parseInt($('#wrapper').css('height'));
+
+  var top1 = parseInt(player.top);
+	var top3 = parseInt(player2.top);
+
+	var left1 = parseInt(player.left);
+	var left3 = parseInt(player2.left);
+
+  var bottom1 = player.height+parseInt(player.top);
+	var bottom3 = player2.height+parseInt(player2.top);
+
+	var right1 = player.width+parseInt(player.left);
+	var right3 = player2.width+parseInt(player2.left);
+
+  var width1 = player.width;
+	var width3 = player2.width;
+
+	var height1 = player.height;
+	var height3 = player2.height;
+
   //blocks player 1 from moving outside of game
-	if(parseInt(player.left) + player.width >= elemLeft+elemWidth){
-		player.left = elemWidth - player.width - 2;
+	if(left1 + player.width >= elemLeft+elemWidth){
+		player.left = elemWidth - player.width-2;
 	}
-	if(parseInt(player.top) + player.height >= elemTop){
-		player.top = elemTop - player.height - 2;
+	if(top1 + player.height >= elemTop){
+		player.top = elemTop - player.height-2;
 	}
-	if(parseInt(player.top) < 3){
+	if(top1 < 3){
 		player.top = 3;
 	}
-	if(parseInt(player.left) < 3){
+	if(left1 < 3){
 		player.left = 3;
 	}
-  //blocks player 2 from moving outside of game
-	if(parseInt(player2.left) + player2.width >= elemLeft+elemWidth){
-		player2.left = elemWidth - player2.width - 2;
+	//blocks player 2 from moving outside of game
+	if(left3 + player2.width >= elemLeft+elemWidth){
+		player2.left = elemWidth - player2.width-2;
 	}
-	if(parseInt(player2.top) + player2.height >= elemTop){
-		player2.top = elemTop - player2.height - 2;
+	if(top3 + player2.height >= elemTop){
+		player2.top = elemTop - player2.height-2;
 	}
-	if(parseInt(player2.top) < 3){
+	if(top3 < 3){
 		player2.top = 3;
 	}
-	if(parseInt(player2.left) < 3){
+	if(left3 < 3){
 		player2.left = 3;
 	}
+  for(var i = 0; i < pointArray.length; i++){
+		var left2 = pointArray[i].left;
+		var right2 = pointArray[i].left+pointArray[i].width;
+		var top2 = parseInt(pointArray[i].top);
+		var bottom2 = pointArray[i].top+pointArray[i].height;
+		if(right1>left2 && left1<right2 && top1<bottom2 && bottom1>top2 || left1<left2 && right1>right2 && top1<top2 && bottom1>bottom2){
+			remove(i);
+      player1Score += 1
+      $('#ps1').text("Player 1 Score: " + player1Score)
+			pointArray.splice(i, 1);
+		}
+	}
+	for(var i = 0; i < pointArray.length; i++){
+		var left2 = pointArray[i].left;
+		var right2 = pointArray[i].left+pointArray[i].width;
+		var top2 = parseInt(pointArray[i].top);
+		var bottom2 = pointArray[i].top+pointArray[i].height;
+		if(right3>left2 && left3<right2 && top3<bottom2 && bottom3>top2 || left3<left2 && right3>right2 && top3<top2 && bottom3>bottom2){
+			remove(i);
+			pointArray.splice(i, 1);
+		}
+	}
 }
-// function getTheStyle(id,styleProperty){
-//     var elem = document.getElementById(id);
-//     var theCSSprop = window.getComputedStyle(elem,null).getPropertyValue(styleProperty);
-// 	return theCSSprop;
-//   }
+
+function remove(id) {
+    var elem = $('.point')[id]
+    //document.getElementsByClassName("point");
+    return document.getElementById('wrapper').removeChild(elem);
+}
+
+
 window.onkeydown = function(page){
 	keyArray[page.keyCode] = page.type === 'keydown';
 }
@@ -191,3 +377,32 @@ window.onkeyup = function(page){
 //page (the parameter) defines what key is pressed from global window
 //page.keyCode will return number and will determine array position. page.type will return "keydown" and just check if its true
 //this will in turn return if the key was true or not in the if statement about. if true, then move player accordingly
+
+
+
+// function getTheStyle(id,styleProperty){
+//     var elem = document.getElementById(id);
+//     var theCSSprop = window.getComputedStyle(elem,null).getPropertyValue(styleProperty);
+// 	return theCSSprop;
+//   }
+
+
+
+//DISCARD
+// function generateRocks() {
+//   sideSelector = Math.floor(Math.random()*2);
+//   randSide = ["1020px", "1030px", "1040px", "1050px", "-20px"]; // fix to change spawn around square
+//   $rocks = $("<div class=rock/>")
+//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[0],"top":"10px","position":"relative","display":"inline-block"})
+//     $('#wrapper').append($rocks)
+//   $rocks = $("<div class=rock/>")
+//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[1],"top":"20px","position":"relative","display":"inline-block"})
+//     $('#wrapper').append($rocks)
+//   $rocks = $("<div class=rock/>")
+//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[2],"top":"30px","position":"relative","display":"inline-block"})
+//     $('#wrapper').append($rocks)
+//   $rocks = $("<div class=rock/>")
+//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[3],"top":"40px","position":"relative","display":"inline-block"})
+//   $('#wrapper').append($rocks)
+// }
+// // generateRocks()
