@@ -27,3 +27,154 @@ if rock top < 0 && rock left < 502
 
 if rock top < 0 && rock left > 502
   then shift left- , top+
+
+
+create logic on which way a rock should move based on the randomized location
+
+
+in start game, do a for loop and create rocks based on i
+
+
+
+
+
+function rockMove() {
+  $rocks = $('.rock')
+
+  for (i = 0; i < $rocks.length; i++) {
+    rockTop = parseInt($rocks[i].style.top)
+    rockLeft = parseInt($rocks[i].style.left)
+
+    leftR = 2 //parseInt(Math.random()*4) + 1;
+    topR = -2
+
+    // //bottom
+    // if (rockArray[i].quadrant === 6) {
+    //   // content then shift left+ , top-
+    //   // console.log($rocks[i])
+    //   leftR = 2
+    //   topR = -2
+    //     newTop = rockTop + topR;
+    //     this.$rocks[i].style.top = newTop + "px"
+    //     newLeft = rockLeft + leftR;
+    //     this.$rocks[i].style.left = newLeft + "px"
+    // }
+    // if (rockArray[i].quadrant === 5) {
+    //   // content then shift left- , top-
+    //   leftR = -2
+    //   topR = -2
+    //     newTop = rockTop + topR;
+    //     this.$rocks[i].style.top = newTop + "px"
+    //     newLeft = rockLeft + leftR;
+    //     this.$rocks[i].style.left = newLeft + "px"
+    // }
+    //
+    // //right
+    // if (rockArray[i].quadrant === 3) {
+    //   // content then shift left- , top+
+    //   leftR = -2
+    //   topR = 2
+    //     newTop = rockTop + topR;
+    //     this.$rocks[i].style.top = newTop + "px"
+    //     newLeft = rockLeft + leftR;
+    //     this.$rocks[i].style.left = newLeft + "px"
+    // }
+    // if (rockArray[i].quadrant === 4) {
+    //   // content then shift left- , top-
+    //   leftR = -2
+    //   topR = -2
+    //     newTop = rockTop + topR;
+    //     this.$rocks[i].style.top = newTop + "px"
+    //     newLeft = rockLeft + leftR;
+    //     this.$rocks[i].style.left = newLeft + "px"
+    // }
+    //
+    // //left
+    // if (rockArray[i].quadrant === 8) {
+    //   // content then shift left+ , top+
+    //   leftR = 2
+    //   topR = 2
+    //     newTop = rockTop + topR;
+    //     this.$rocks[i].style.top = newTop + "px"
+    //     newLeft = rockLeft + leftR;
+    //     this.$rocks[i].style.left = newLeft + "px"
+    // }
+    // if (rockArray[i].quadrant === 7) {
+    //   // content then shift left+ , top-
+    //   leftR = 2
+    //   topR = -2
+    //     newTop = rockTop + topR;
+    //     this.$rocks[i].style.top = newTop + "px"
+    //     newLeft = rockLeft + leftR;
+    //     this.$rocks[i].style.left = newLeft + "px"
+    // }
+    //
+    // //top
+    // if (rockArray[i].quadrant === 1) {
+    //   // content then shift left+ , top+
+    //   leftR = 2
+    //   topR = 2
+    //     newTop = rockTop + topR;
+    //     this.$rocks[i].style.top = newTop + "px"
+    //     newLeft = rockLeft + leftR;
+    //     this.$rocks[i].style.left = newLeft + "px"
+    // }
+    // if (rockArray[i].quadrant === 2) {
+    //   // content then shift left- , top+
+    //   leftR = -2
+    //   topR = 2
+    //     newTop = rockTop + topR;
+    //     this.$rocks[i].style.top = newTop + "px"
+    //     newLeft = rockLeft + leftR;
+    //     this.$rocks[i].style.left = newLeft + "px"
+    // }
+
+
+  }
+  requestAnimationFrame(rockMove)
+}
+
+
+
+
+
+// function rockGenerator() {
+//   leftRight = [];
+//   topBottom = [];
+//   positionArray = [];
+//   //have rocks spawn between these numbers
+//   randRight = Math.floor(Math.random() * (1030 - 1020) + 1020)
+//   randBot = Math.floor(Math.random() * (630 - 620) + 620)
+//   randTop = Math.floor(Math.random() * (-30-(-20)) + (-20))
+//   randLeft = Math.floor(Math.random() * (-30-(-20)) + (-20))
+//
+//   leftPos = Math.floor(Math.random() * (1004 - 0) + 0)
+//   topPos = Math.floor(Math.random() * (604 - 0) + 0)
+//   leftRight.push(randRight, randLeft)
+//   topBottom.push(randTop, randBot)
+//   function rand01() {
+//     return Math.round(Math.random())
+//   }
+//   positionArray.push(leftRight[rand01()],topBottom[rand01()])
+//   clone = positionArray[rand01()]
+//   if (clone === positionArray[0]) {
+//     positionArray.splice(1, 1)
+//     positionArray.push(topPos)
+//   }
+//   if (clone === positionArray[1]) {
+//     positionArray.splice(0, 1)
+//     positionArray.unshift(leftPos) //test positions randomizer
+//   }
+//   $rocks = $("<div class=rock/>")
+//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":positionArray[0]+"px","top":positionArray[1]+"px","position":"relative","display":"inline-block", "position":"absolute"})
+//     $('#wrapper').append($rocks)
+// }
+
+
+
+
+
+instead of returning quadrants, return a left and top to create movement for the rocks
+
+randomize movement speed in rocks object newPos
+for loop to create new rocks. also figure out how to create more rocks maybe if rockArray.length < 10 produce more 

@@ -1,6 +1,6 @@
 var keyArray = [];
-// var currentWave = 1;
 var pointArray = [];
+var rockArray = []
 var player1Score = 0;
 var player2Score = 0;
 // window.onload = function() {
@@ -14,6 +14,10 @@ var player2;
 function initiate(){
 	player = new createPlayer(150,50,"player1","relative","blue"); // (spawn points, player, relative position, player color)
 	player2 = new createPlayer(150,0,"player2","relative","green");
+  rock1 = new createRock(1);
+  rock2 = new createRock(2);
+
+  rockArray.push(rock1, rock2)
 }
 
 // starts at startGame() then goes to push in pointArray of new created point objects
@@ -140,6 +144,7 @@ function randomFloat() {
   requestAnimationFrame(randomFloat);
 }
 
+// rock = new createRock(1)
 function createRock(id){
   leftRight = [];
   topBottom = [];
@@ -167,102 +172,76 @@ function createRock(id){
     positionArray.splice(0, 1)
     positionArray.unshift(leftPos) //test positions randomizer
   }
+
+  // Rock quadrant for directions
+  if (positionArray[0] <= (-20)) {
+    if (positionArray[1] <= 302) {
+      console.log(this);
+      this.newPos = [2, 2];
+    }
+    if (positionArray[1] >= 303) {
+      this.newPos = [2, -2];
+    }
+  }
+
+  if (positionArray[1] <= (-20)) {
+    if (positionArray[0] <= 502) {
+      this.newPos = [2, 2];
+    }
+    if (positionArray[0] >= 503) {
+      this.newPos = [-2, 2];
+    }
+  }
+
+  if (positionArray[0] >= 1020) {
+    if (positionArray[1] <= 302) {
+      this.newPos = [-2, 2];
+    }
+    if (positionArray[1] >= 303) {
+      this.newPos = [-2, -2];
+    }
+  }
+
+  if (positionArray[1] >= 620) {
+    if (positionArray[0] <= 502) {
+      this.newPos = [2, -2];
+    }
+    if (positionArray[0] >= 503) {
+      this.newPos = [-2, -2];
+    }
+  }
+
 	this.speed = 3; // this makes it iterate over 3px but any increase and it will skip over certain px creating and issue with the checker for rocks
 	this.width = 10;
 	this.height = 10;
 	this.left = positionArray[0];
 	this.top = positionArray[1];
 	this.id = id;
-	$rock = $("<div id=" + id + "/>")
+
+	$rock = $("<div class=rock/>")
 		.css({"backgroundColor":"red","height":this.height,"width":this.width,"left":this.left+"px","top":this.top+"px","position":"absolute"})
   $('#wrapper').append($rock);
 }
 
-// function rockGenerator() {
-//   leftRight = [];
-//   topBottom = [];
-//   positionArray = [];
-//   //have rocks spawn between these numbers
-//   randRight = Math.floor(Math.random() * (1030 - 1020) + 1020)
-//   randBot = Math.floor(Math.random() * (630 - 620) + 620)
-//   randTop = Math.floor(Math.random() * (-30-(-20)) + (-20))
-//   randLeft = Math.floor(Math.random() * (-30-(-20)) + (-20))
-//
-//   leftPos = Math.floor(Math.random() * (1004 - 0) + 0)
-//   topPos = Math.floor(Math.random() * (604 - 0) + 0)
-//   leftRight.push(randRight, randLeft)
-//   topBottom.push(randTop, randBot)
-//   function rand01() {
-//     return Math.round(Math.random())
-//   }
-//   positionArray.push(leftRight[rand01()],topBottom[rand01()])
-//   clone = positionArray[rand01()]
-//   if (clone === positionArray[0]) {
-//     positionArray.splice(1, 1)
-//     positionArray.push(topPos)
-//   }
-//   if (clone === positionArray[1]) {
-//     positionArray.splice(0, 1)
-//     positionArray.unshift(leftPos) //test positions randomizer
-//   }
-//   $rocks = $("<div class=rock/>")
-//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":positionArray[0]+"px","top":positionArray[1]+"px","position":"relative","display":"inline-block", "position":"absolute"})
-//     $('#wrapper').append($rocks)
-// }
 
+// what if put all the ifs in a function so requestAnimationFrame only works on the movement and not the for loop
 function rockMove() {
-  $rocks = $('.rock')
+  $rocks = $('.rock');
 
   for (i = 0; i < $rocks.length; i++) {
-    rockTop = parseInt($rocks[i].style.top)
-    rockLeft = parseInt($rocks[i].style.left)
+    rockTop = parseInt($rocks[i].style.top);
+    rockLeft = parseInt($rocks[i].style.left);
 
-    leftR = 2 //parseInt(Math.random()*4) + 1;
-    topR = -2
+    leftR = rockArray[i].newPos[0];
+    topR = rockArray[i].newPos[1];
 
-    //bottom
-    if (parseInt($rocks[i].style.top) > 604 && parseInt($rocks[i].style.left) < 502) {
-      // content then shift left+ , top-
-      // function mover() {
-        newTop = rockTop + topR;
-        this.$rocks[i].style.top = newTop + "px"
-        newLeft = rockLeft + leftR;
-        this.$rocks[i].style.left = newLeft + "px"
-      //   requestAnimationFrame(mover)
-      // }
-      // mover()
-    }
-    if (rockTop > 604 && rockLeft > 502) {
-      // content then shift left- , top-
-    }
-
-    //right
-    if (rockLeft > 1004 && rockTop < 302) {
-      // content then shift left- , top+
-    }
-    if (rockLeft > 1004 && rockTop > 302) {
-      // content then shift left- , top-
-    }
-
-    //left
-    if (rockLeft < 0 && rockTop < 302) {
-      // content then shift left+ , top+
-    }
-    if (rockLeft < 0 && rockTop > 302) {
-      // content then shift left+ , top-
-    }
-
-    //top
-    if (rockTop < 0 && rockLeft < 502) {
-      // content then shift left+ , top+
-    }
-    if (rockTop < 0 && rockLeft > 502) {
-      // content then shift left- , top+
-    }
-
+    newTop = rockTop + topR;
+    this.$rocks[i].style.top = newTop + "px"
+    newLeft = rockLeft + leftR;
+    this.$rocks[i].style.left = newLeft + "px"
 
   }
-  requestAnimationFrame(rockMove)
+   requestAnimationFrame(rockMove)
 }
 
 
@@ -385,24 +364,3 @@ window.onkeyup = function(page){
 //     var theCSSprop = window.getComputedStyle(elem,null).getPropertyValue(styleProperty);
 // 	return theCSSprop;
 //   }
-
-
-
-//DISCARD
-// function generateRocks() {
-//   sideSelector = Math.floor(Math.random()*2);
-//   randSide = ["1020px", "1030px", "1040px", "1050px", "-20px"]; // fix to change spawn around square
-//   $rocks = $("<div class=rock/>")
-//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[0],"top":"10px","position":"relative","display":"inline-block"})
-//     $('#wrapper').append($rocks)
-//   $rocks = $("<div class=rock/>")
-//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[1],"top":"20px","position":"relative","display":"inline-block"})
-//     $('#wrapper').append($rocks)
-//   $rocks = $("<div class=rock/>")
-//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[2],"top":"30px","position":"relative","display":"inline-block"})
-//     $('#wrapper').append($rocks)
-//   $rocks = $("<div class=rock/>")
-//     .css({"backgroundColor":"red","height":"10px","width":"10px","left":randSide[3],"top":"40px","position":"relative","display":"inline-block"})
-//   $('#wrapper').append($rocks)
-// }
-// // generateRocks()
