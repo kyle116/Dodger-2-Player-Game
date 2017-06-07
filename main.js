@@ -12,40 +12,43 @@ var player2Score = 0;
 var player;
 var player2;
 function initiate(){
-	player = new createPlayer(150,50,"player1","relative","blue"); // (spawn points, player, relative position, player color)
-	player2 = new createPlayer(150,0,"player2","relative","green");
-  rock1 = new createRock(1);
-  rock2 = new createRock(2);
-
-  rockArray.push(rock1, rock2)
+	player = new createPlayer(300,300,"player1","relative","blue",true); // (spawn points, player, relative position, player color)
+	player2 = new createPlayer(700,300,"player2","relative","green",true);
 }
 
 // starts at startGame() then goes to push in pointArray of new created point objects
 function startGame() {
-  // setInterval (function() {
-    // point();
-    // if (parseInt(player.left) === $('.point').position().left) { //**wont equal right now since the random point isnt working
-  //     console.log("dissapear")
-  //   }
-  // }, 2000)
-  // checker()
-  // randomFloat()
   for(var i = 0;i<5;i++){
 		pointArray.push(new point(i));
-    // if div.point <= 2 then start returning more points
 	}
-  // rockGenerator()
+
+  var pointInterval =
+    setInterval(function() {
+      if ($('.point').length <= 2) {
+      pointArray.push(new point());
+      }
+    }, 1000)
+  var rockInterval =
+    setInterval(function() {
+      for (var i = 0; i < 2; i++) {
+      rockArray.push(new createRock(i))
+      }
+    }, 2000)
+  rockCollision()
+  rockMove()
+  $('input').hide()
 }
 
-function createPlayer(l,t,id,pos,color){
+function createPlayer(l,t,id,pos,color,boo){
 	this.speed = 3; // this makes it iterate over 3px but any increase and it will skip over certain px creating and issue with the checker for rocks
 	this.width = 25;
 	this.height = 25;
 	this.left = l;
 	this.top = t;
 	this.id = id;
+  this.reader = boo;
 	$user = $("<div id=" + id + "/>")
-		.css({"backgroundColor":color,"height":this.height,"width":this.width,"left":this.left,"top":this.top,"position":pos})
+		.css({"border":"1px solid " + color,"height":this.height,"width":this.width,"left":this.left,"top":this.top,"position":pos})
   $('#wrapper').append($user);
 }
 
@@ -57,7 +60,7 @@ function point(id){ //something about this function spawns the yellow dots but s
 	this.width = 10;
 	this.height = 10;
   $points = $("<div class=point/>")
-    .css({"backgroundColor":"yellow","height":"20px","width":"20px","left":this.left,"top":this.top,"position":"absolute"})
+    .css({"border":"1px solid yellow","height":"20px","width":"20px","left":this.left,"top":this.top,"position":"absolute"})
   $('#wrapper').append($points)
 }
 
@@ -66,25 +69,25 @@ function point(id){ //something about this function spawns the yellow dots but s
 function update(){
   //player1 if key is pressed, move in direction minus player speed (speed is just subtracting which how many more pixels you want to move in direction)
   //left
-	if(keyArray[65]){
+	if(keyArray[65] && player.reader === true){
 		var newLeft = parseInt(player.left)-player.speed+"px"
 		player.left = newLeft;
 		document.getElementById(player.id).style.left = newLeft;
 	}
 	//right
-	if(keyArray[68]){
+	if(keyArray[68] && player.reader === true){
 		var newLeft = parseInt(player.left)+player.speed+"px"
 		player.left = newLeft;
 		document.getElementById(player.id).style.left = newLeft;
 	}
 	//up
-	if(keyArray[87]){
+	if(keyArray[87] && player.reader === true){
 		var newTop = parseInt(player.top)-player.speed+"px"
 		player.top = newTop;
 		document.getElementById(player.id).style.top = newTop;
 	}
 	//down
-	if(keyArray[83]){
+	if(keyArray[83] && player.reader === true){
 		var newTop = parseInt(player.top)+player.speed+"px"
 		player.top = newTop;
 		document.getElementById(player.id).style.top = newTop;
@@ -92,31 +95,32 @@ function update(){
 
   //player2
 	//left
-	if(keyArray[37]){
+	if(keyArray[37] && player2.reader){
 		var newLeft = parseInt(player2.left)-player2.speed+"px"
 		player2.left = newLeft;
 		document.getElementById(player2.id).style.left = newLeft;
 	}
 	//right
-	if(keyArray[39]){
+	if(keyArray[39] && player2.reader){
 		var newLeft = parseInt(player2.left)+player2.speed+"px"
 		player2.left = newLeft;
 		document.getElementById(player2.id).style.left = newLeft;
 	}
 	//up
-	if(keyArray[38]){
+	if(keyArray[38] && player2.reader){
 		var newTop = parseInt(player2.top)-player2.speed+"px"
 		player2.top = newTop;
 		document.getElementById(player2.id).style.top = newTop;
 	}
 	//down
-	if(keyArray[40]){
+	if(keyArray[40] && player2.reader){
 		var newTop = parseInt(player2.top)+player2.speed+"px"
 		player2.top = newTop;
 		document.getElementById(player2.id).style.top = newTop;
 	}
 
   blockade();
+
 	requestAnimationFrame(update);
 }
 
@@ -124,25 +128,7 @@ function update(){
 
 
 
-function randomFloat() {
 
-  leftR = parseInt(Math.random()*2);
-  topR = 2 //parseInt(Math.random()*2);
-  //if topR gets to certain top value start going negative same for left
-
-  // need to add for loop to cycle through the rocks
-  for (var i = 0; i < $('.rock').length; i++) {
-    leftR = parseInt(Math.random()*4) + 1;
-    topR = 2
-
-    newTop = parseInt(document.getElementsByClassName('rock')[i].style.top) + topR;
-    document.getElementsByClassName('rock')[i].style.top = newTop + "px"
-    newLeft = parseInt(document.getElementsByClassName('rock')[i].style.left) + leftR;
-    document.getElementsByClassName('rock')[i].style.left = newLeft + "px"
-
-  }
-  requestAnimationFrame(randomFloat);
-}
 
 // rock = new createRock(1)
 function createRock(id){
@@ -157,6 +143,10 @@ function createRock(id){
 
   leftPos = Math.floor(Math.random() * (1004 - 0) + 0)
   topPos = Math.floor(Math.random() * (604 - 0) + 0)
+
+  pos = Math.floor(Math.random() * (2) + 1)
+  neg = Math.floor(Math.random() * (-2) - 1)
+
   leftRight.push(randRight, randLeft)
   topBottom.push(randTop, randBot)
   function rand01() {
@@ -177,49 +167,49 @@ function createRock(id){
   if (positionArray[0] <= (-20)) {
     if (positionArray[1] <= 302) {
       console.log(this);
-      this.newPos = [2, 2];
+      this.newPos = [pos, pos];
     }
     if (positionArray[1] >= 303) {
-      this.newPos = [2, -2];
+      this.newPos = [pos, neg];
     }
   }
 
   if (positionArray[1] <= (-20)) {
     if (positionArray[0] <= 502) {
-      this.newPos = [2, 2];
+      this.newPos = [pos, pos];
     }
     if (positionArray[0] >= 503) {
-      this.newPos = [-2, 2];
+      this.newPos = [neg, pos];
     }
   }
 
   if (positionArray[0] >= 1020) {
     if (positionArray[1] <= 302) {
-      this.newPos = [-2, 2];
+      this.newPos = [neg, pos];
     }
     if (positionArray[1] >= 303) {
-      this.newPos = [-2, -2];
+      this.newPos = [neg, neg];
     }
   }
 
   if (positionArray[1] >= 620) {
     if (positionArray[0] <= 502) {
-      this.newPos = [2, -2];
+      this.newPos = [pos, neg];
     }
     if (positionArray[0] >= 503) {
-      this.newPos = [-2, -2];
+      this.newPos = [neg, neg];
     }
   }
 
 	this.speed = 3; // this makes it iterate over 3px but any increase and it will skip over certain px creating and issue with the checker for rocks
-	this.width = 10;
-	this.height = 10;
+	this.width = 20;
+	this.height = 20;
 	this.left = positionArray[0];
 	this.top = positionArray[1];
 	this.id = id;
 
 	$rock = $("<div class=rock/>")
-		.css({"backgroundColor":"red","height":this.height,"width":this.width,"left":this.left+"px","top":this.top+"px","position":"absolute"})
+		.css({"border":"1px solid red","height":this.height,"width":this.width,"left":this.left+"px","top":this.top+"px","position":"absolute"})
   $('#wrapper').append($rock);
 }
 
@@ -292,10 +282,10 @@ function blockade() {
 
   //blocks player 1 from moving outside of game
 	if(left1 + player.width >= elemLeft+elemWidth){
-		player.left = elemWidth - player.width-2;
+		player.left = elemWidth - player.width;
 	}
 	if(top1 + player.height >= elemTop){
-		player.top = elemTop - player.height-2;
+		player.top = elemTop - player.height;
 	}
 	if(top1 < 3){
 		player.top = 3;
@@ -305,10 +295,10 @@ function blockade() {
 	}
 	//blocks player 2 from moving outside of game
 	if(left3 + player2.width >= elemLeft+elemWidth){
-		player2.left = elemWidth - player2.width-2;
+		player2.left = elemWidth - player2.width;
 	}
 	if(top3 + player2.height >= elemTop){
-		player2.top = elemTop - player2.height-2;
+		player2.top = elemTop - player2.height;
 	}
 	if(top3 < 3){
 		player2.top = 3;
@@ -316,6 +306,8 @@ function blockade() {
 	if(left3 < 3){
 		player2.left = 3;
 	}
+
+  // collision for points
   for(var i = 0; i < pointArray.length; i++){
 		var left2 = pointArray[i].left;
 		var right2 = pointArray[i].left+pointArray[i].width;
@@ -335,15 +327,94 @@ function blockade() {
 		var bottom2 = pointArray[i].top+pointArray[i].height;
 		if(right3>left2 && left3<right2 && top3<bottom2 && bottom3>top2 || left3<left2 && right3>right2 && top3<top2 && bottom3>bottom2){
 			remove(i);
+      player2Score += 1
+      $('#ps2').text("Player 2 Score: " + player2Score)
 			pointArray.splice(i, 1);
 		}
 	}
+
 }
 
 function remove(id) {
     var elem = $('.point')[id]
     //document.getElementsByClassName("point");
     return document.getElementById('wrapper').removeChild(elem);
+}
+
+function rockCollision() {
+  $rock = $('.rock')
+  var elemLeftRock = parseInt($('#wrapper').css('left'));
+	var elemWidthRock = parseInt($('#wrapper').css('width'));
+	var elemTopRock = parseInt($('#wrapper').css('height'));
+
+  var topP1 = parseInt(player.top);
+	var topP2 = parseInt(player2.top);
+
+
+	var leftP1 = parseInt(player.left);
+	var leftP2 = parseInt(player2.left);
+
+
+  var bottomP1 = player.height+parseInt(player.top);
+	var bottomP2 = player2.height+parseInt(player2.top);
+
+
+	var rightP1 = player.width+parseInt(player.left);
+	var rightP2 = player2.width+parseInt(player2.left);
+
+
+  var widthP1 = player.width;
+	var widthP2 = player2.width;
+
+	var heightP1 = player.height;
+	var heightP2 = player2.height;
+
+
+  // collision for rocks
+  for(var i = 0; i < rockArray.length; i++){
+		var leftRo = parseInt($rock[i].style.left);
+		var rightR = parseInt($rock[i].style.left)+rockArray[i].width;
+		var topRo = parseInt($rock[i].style.top);
+		var bottomR = parseInt($rock[i].style.top)+rockArray[i].height;
+    // console.log(rightP1>leftR && leftP1<rightR && topP1<bottomR && bottomP1>topR || leftP1<leftR && rightP1>rightR && topP1<topR && bottomP1>bottomR);
+		if(leftRo<rightP1 && rightR>leftP1 && bottomR>topP1 && topRo<bottomP1 || leftRo>leftP1 && rightR<rightP1 && topRo>topP1 && bottomR<bottomP1){
+
+
+      console.log("hit");
+      $('#ps1').text("DEAD Player 1 Score: " + player1Score)
+      $('#player1').css({"height": "0", "width":"0", "border": "none"})
+      player.reader = false
+
+		}
+	}
+	for(var i = 0; i < rockArray.length; i++){
+    var leftRo = parseInt($rock[i].style.left);
+		var rightR = parseInt($rock[i].style.left)+rockArray[i].width;
+		var topRo = parseInt($rock[i].style.top);
+		var bottomR = parseInt($rock[i].style.top)+rockArray[i].height;
+		if(leftRo<rightP2 && rightR>leftP2 && bottomR>topP2 && topRo<bottomP2 || leftRo>leftP2 && rightR<rightP2 && topRo>topP2 && bottomR<bottomP2){
+
+
+      console.log("hit");
+      $('#ps2').text("DEAD Player 2 Score: " + player2Score)
+      $('#player2').css({"height": "0", "width":"0", "border": "none"})
+      player2.reader = false
+
+		}
+	}
+  if (parseInt($('#player1').css('height')) === 0 && parseInt($('#player2').css('height')) === 0) {
+    clearOut()
+  }
+  requestAnimationFrame(rockCollision)
+}
+
+function clearOut() {
+  pointArray = [];
+  rockArray = [];
+  player1Score = 0;
+  player2Score = 0;
+  initiate();
+  clearInterval()
 }
 
 

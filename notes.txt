@@ -177,4 +177,28 @@ function rockMove() {
 instead of returning quadrants, return a left and top to create movement for the rocks
 
 randomize movement speed in rocks object newPos
-for loop to create new rocks. also figure out how to create more rocks maybe if rockArray.length < 10 produce more 
+for loop to create new rocks. also figure out how to create more rocks maybe if rockArray.length < 10 produce more
+
+so player is checking old values for collisions
+
+ROCKS REACTIVATE
+reactivate rockMove() positions
+reactivate for loop producing rocks at start Game
+
+to hide player once hit
+$('#player1').css({"height": "0", "width":"0"}) // this works
+
+
+to make rock dissapear after moving out of box
+
+
+disable start button after clicking
+end game
+restart game
+find a way to delete rocks after passing through container
+create start screen overlay and end game overlay
+
+left side point recognition and top side are off. need to create more accurate collision
+
+$('#player1').css('height')
+$('#player2').css('height')

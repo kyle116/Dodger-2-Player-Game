@@ -1,19 +1,19 @@
-/*html, body {margin: 0; height: 100%; overflow: hidden}*/
+html, body {   height: 100%; overflow: hidden}
 
-/*#container{
-	width:80%;
-	height:60%;
-	position:absolute;
-	text-align:center;
-}*/
+@font-face {
+    font-family: 'digital';
+    src: url('digital-7.ttf');
+}
 
 #wrapper{
-	left:0px;
+  left:0px; /*dont delete NEEDED*/
 	width:1000px;
 	height:600px;
 	border:1px solid lime;
 	background-color:black;
   display: inline-block;
+  /*background-image: url('https://www.xmple.com/wallpaper/graph-paper-black-green-grid-7680x4320-c2-000000-00ff00-l2-4-120-a-0-f-20.svg');*/
+  background-size: 200%;
 }
 
 #player1, .point {
@@ -27,20 +27,82 @@ body{
 
 #container {
   display: inline-block;
-  width: 90%;
-  /*padding-left: 30px;
-  padding-top: 30px;*/
+  width: 100%;
 }
 
 #ps1, #ps2 {
 	color:white;
-	font-size:100%;
+	font-size:160%;
   display: inline-block;
   float: right;
   clear: both;
+  font-family: digital;
+  position: absolute;
+  margin-left: 20px;
+  z-index: 2;
+}
+
+#ps1 {
+  top: 90px;
+}
+
+#ps2 {
+  top: 140px;
 }
 
 input {
+  position: absolute;
   display: inline-block;
   float: right;
+  margin: 10px 20px 20px 20px;
+  z-index: 2;
+}
+
+input {
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  font-family: digital;
+  color: #ffffff;
+  font-size: 20px;
+  background: purple;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.black1 {
+  position: absolute;
+  background-color: black;
+  width: 340px;
+  height: 1040px;
+  top: 0;
+  left: 1010px;
+  z-index: 1;
+}
+
+.black2 {
+  position: absolute;
+  background-color: black;
+  width: 8px;
+  height: 1040px;
+  top: 0;
+  left: 0px;
+}
+
+.black3 {
+  position: absolute;
+  background-color: black;
+  width: 1500px;
+  height: 400px;
+  top: 610px;
+  left: 0px;
+}
+
+.black4 {
+  position: absolute;
+  background-color: black;
+  width: 1500px;
+  height: 8px;
+  top: 0;
+  left: 0px;
 }
