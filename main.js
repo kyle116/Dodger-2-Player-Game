@@ -3,17 +3,18 @@ var pointArray = [];
 var rockArray = []
 var player1Score = 0;
 var player2Score = 0;
-// window.onload = function() {
-  initiate();
-  update();
-// }
+
+initiate();
+update();
+
 
 
 var player;
 var player2;
 function initiate(){
-	player = new createPlayer(300,300,"player1","relative","blue",true); // (spawn points, player, relative position, player color)
-	player2 = new createPlayer(700,300,"player2","relative","green",true);
+	player = new createPlayer(300,300,"player1","relative","blue",false); // (spawn points, player, relative position, player color)
+	player2 = new createPlayer(675,300,"player2","relative","green",false);
+  $('.overlay').hide()
 }
 
 // starts at startGame() then goes to push in pointArray of new created point objects
@@ -22,13 +23,13 @@ function startGame() {
 		pointArray.push(new point(i));
 	}
 
-  var pointInterval =
+  pointInterval =
     setInterval(function() {
       if ($('.point').length <= 2) {
       pointArray.push(new point());
       }
     }, 1000)
-  var rockInterval =
+  rockInterval =
     setInterval(function() {
       for (var i = 0; i < 2; i++) {
       rockArray.push(new createRock(i))
@@ -37,6 +38,8 @@ function startGame() {
   rockCollision()
   rockMove()
   $('input').hide()
+  player.reader = true;
+  player2.reader = true;
 }
 
 function createPlayer(l,t,id,pos,color,boo){
@@ -46,6 +49,7 @@ function createPlayer(l,t,id,pos,color,boo){
 	this.left = l;
 	this.top = t;
 	this.id = id;
+  this.color = color;
   this.reader = boo;
 	$user = $("<div id=" + id + "/>")
 		.css({"border":"1px solid " + color,"height":this.height,"width":this.width,"left":this.left,"top":this.top,"position":pos})
@@ -118,16 +122,9 @@ function update(){
 		player2.top = newTop;
 		document.getElementById(player2.id).style.top = newTop;
 	}
-
   blockade();
-
 	requestAnimationFrame(update);
 }
-
-
-
-
-
 
 
 // rock = new createRock(1)
@@ -144,8 +141,8 @@ function createRock(id){
   leftPos = Math.floor(Math.random() * (1004 - 0) + 0)
   topPos = Math.floor(Math.random() * (604 - 0) + 0)
 
-  pos = Math.floor(Math.random() * (2) + 1)
-  neg = Math.floor(Math.random() * (-2) - 1)
+  pos = Math.floor(Math.random() * (3) + 1)
+  neg = Math.floor(Math.random() * (-3) - 1)
 
   leftRight.push(randRight, randLeft)
   topBottom.push(randTop, randBot)
@@ -214,7 +211,6 @@ function createRock(id){
 }
 
 
-// what if put all the ifs in a function so requestAnimationFrame only works on the movement and not the for loop
 function rockMove() {
   $rocks = $('.rock');
 
@@ -233,28 +229,6 @@ function rockMove() {
   }
    requestAnimationFrame(rockMove)
 }
-
-
-
-
-// function checker() { //checks to see if player touches points
-//   console.log('up')
-//   yellowPoint = document.getElementsByClassName("point")
-//   for (var i = 0; i < yellowPoint.length; i++) {
-//     if (parseInt(document.getElementById(player.id).style.left) - 3 <= parseInt(yellowPoint[i].style.left) && parseInt(document.getElementById(player.id).style.left) + 3 >= parseInt(yellowPoint[i].style.left)) {
-//     console.log('works');
-//     document.getElementById("wrapper").removeChild(yellowPoint[i])
-//     }
-//   }
-//   rocks = document.getElementsByClassName("rock")
-//   for (var i = 0; i < yellowPoint.length; i++) {
-//     if (parseInt(document.getElementById(player.id).style.left) - 3 <= parseInt(rocks[i].style.left) && parseInt(document.getElementById(player.id).style.left) + 3 >= parseInt(rocks[i].style.left)) {
-//     console.log('works');
-//     document.getElementById("wrapper").removeChild(document.getElementById(player.id)) // **issue with removing since js checks player1
-//     }
-//   }
-// requestAnimationFrame(checker)
-// }
 
 
 function blockade() {
@@ -332,12 +306,11 @@ function blockade() {
 			pointArray.splice(i, 1);
 		}
 	}
-
 }
 
+// removes the points in the game
 function remove(id) {
     var elem = $('.point')[id]
-    //document.getElementsByClassName("point");
     return document.getElementById('wrapper').removeChild(elem);
 }
 
@@ -370,7 +343,7 @@ function rockCollision() {
 	var heightP2 = player2.height;
 
 
-  // collision for rocks
+  // collision for rocks with players
   for(var i = 0; i < rockArray.length; i++){
 		var leftRo = parseInt($rock[i].style.left);
 		var rightR = parseInt($rock[i].style.left)+rockArray[i].width;
@@ -378,13 +351,9 @@ function rockCollision() {
 		var bottomR = parseInt($rock[i].style.top)+rockArray[i].height;
     // console.log(rightP1>leftR && leftP1<rightR && topP1<bottomR && bottomP1>topR || leftP1<leftR && rightP1>rightR && topP1<topR && bottomP1>bottomR);
 		if(leftRo<rightP1 && rightR>leftP1 && bottomR>topP1 && topRo<bottomP1 || leftRo>leftP1 && rightR<rightP1 && topRo>topP1 && bottomR<bottomP1){
-
-
-      console.log("hit");
       $('#ps1').text("DEAD Player 1 Score: " + player1Score)
       $('#player1').css({"height": "0", "width":"0", "border": "none"})
       player.reader = false
-
 		}
 	}
 	for(var i = 0; i < rockArray.length; i++){
@@ -393,30 +362,74 @@ function rockCollision() {
 		var topRo = parseInt($rock[i].style.top);
 		var bottomR = parseInt($rock[i].style.top)+rockArray[i].height;
 		if(leftRo<rightP2 && rightR>leftP2 && bottomR>topP2 && topRo<bottomP2 || leftRo>leftP2 && rightR<rightP2 && topRo>topP2 && bottomR<bottomP2){
-
-
-      console.log("hit");
       $('#ps2').text("DEAD Player 2 Score: " + player2Score)
       $('#player2').css({"height": "0", "width":"0", "border": "none"})
       player2.reader = false
-
 		}
 	}
   if (parseInt($('#player1').css('height')) === 0 && parseInt($('#player2').css('height')) === 0) {
+    $('.overlay').show()
+    $('.reset').show()
+    if (player1Score > player2Score) {
+      $('.span1').text("Game Over Player 1 Wins")
+    } else if (player1Score < player2Score) {
+      $('.span1').text("Game Over Player 2 Wins")
+    } else if (player1Score === player2Score) {
+      $('.span1').text("Game Over Tie Game")
+    }
     clearOut()
   }
   requestAnimationFrame(rockCollision)
 }
 
+
 function clearOut() {
-  pointArray = [];
   rockArray = [];
-  player1Score = 0;
-  player2Score = 0;
-  initiate();
-  clearInterval()
+  clearInterval(pointInterval);
+  clearInterval(rockInterval);
+
 }
 
+function restart() {
+  pointArray = [];
+  player1Score = 0;
+  player2Score = 0;
+
+  player.left = 300
+  player.top = 300
+  player2.left = 700
+  player2.top = 300
+  player.reader = true
+  player2.reader = true
+
+  $('#ps1').text("Player 1 Score: " + player1Score);
+  $('#ps2').text("Player 2 Score: " + player2Score);
+  $('#player1').css({ "height": "25px", "width":"25px", "border":"1px solid " + player.color, "left":player.left,"top":player.top});
+  $('#player2').css({ "height": "25px", "width":"25px", "border":"1px solid " + player2.color, "left":player2.left,"top":player2.top});
+  $('.rock').remove();
+  $('.point').remove();
+
+  for(var i = 0;i<5;i++){
+		pointArray.push(new point(i));
+	}
+
+  pointInterval =
+    setInterval(function() {
+      if ($('.point').length <= 2) {
+      pointArray.push(new point());
+      }
+    }, 1000)
+  rockInterval =
+    setInterval(function() {
+      for (var i = 0; i < 2; i++) {
+      rockArray.push(new createRock(i))
+      }
+    }, 2000)
+
+  rockCollision()
+  rockMove()
+  $('.overlay').hide()
+}
 
 window.onkeydown = function(page){
 	keyArray[page.keyCode] = page.type === 'keydown';
