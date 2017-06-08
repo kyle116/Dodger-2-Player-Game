@@ -19,6 +19,7 @@ function initiate(){
 
 // starts at startGame() then goes to push in pointArray of new created point objects
 function startGame() {
+  $('.screen').hide()
   for(var i = 0;i<5;i++){
 		pointArray.push(new point(i));
 	}
@@ -287,7 +288,7 @@ function blockade() {
 		var right2 = pointArray[i].left+pointArray[i].width;
 		var top2 = parseInt(pointArray[i].top);
 		var bottom2 = pointArray[i].top+pointArray[i].height;
-		if(right1>left2 && left1<right2 && top1<bottom2 && bottom1>top2 || left1<left2 && right1>right2 && top1<top2 && bottom1>bottom2){
+		if(right1>left2 && left1<right2 && top1<bottom2 && bottom1>top2 || left1<left2 && right1>right2 && top1<top2 && bottom1>bottom2){ // left touches right || right touches left
 			remove(i);
       player1Score += 1
       $('#ps1').text("Player 1 Score: " + player1Score)
@@ -404,8 +405,8 @@ function restart() {
 
   $('#ps1').text("Player 1 Score: " + player1Score);
   $('#ps2').text("Player 2 Score: " + player2Score);
-  $('#player1').css({ "height": "25px", "width":"25px", "border":"1px solid " + player.color, "left":player.left,"top":player.top});
-  $('#player2').css({ "height": "25px", "width":"25px", "border":"1px solid " + player2.color, "left":player2.left,"top":player2.top});
+  $('#player1').css({ "height": player.height, "width":player.width, "border":"1px solid " + player.color, "left":player.left,"top":player.top});
+  $('#player2').css({ "height": player2.height, "width":player2.width, "border":"1px solid " + player2.color, "left":player2.left,"top":player2.top});
   $('.rock').remove();
   $('.point').remove();
 
