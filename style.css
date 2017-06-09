@@ -156,3 +156,8 @@ body{
 	font-size: 100px;
   color: white;
 }
+
+.point {
+	margin-top: 8px;
+	margin-left: 8px;
+}

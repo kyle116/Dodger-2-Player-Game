@@ -45,7 +45,7 @@ function startGame() {
 
 // Player Prototype
 function createPlayer(l,t,id,pos,color,boo){
-	this.speed = 3; 
+	this.speed = 3;
 	this.width = 25;
 	this.height = 25;
 	this.left = l;
@@ -63,10 +63,10 @@ function point(id){
   this.left = parseInt(Math.random()*(970) + 10);
 	this.top = parseInt(Math.random()*580 + 10);
   this.id = id;
-	this.width = 10;
-	this.height = 10;
+	this.width = 15;
+	this.height = 15;
   $points = $("<div class=point/>")
-    .css({"border":"4px solid yellow","height":"20px","width":"20px","left":this.left,"top":this.top,"position":"absolute"})
+    .css({"border":"4px solid yellow","height":this.height,"width":this.width,"left":this.left,"top":this.top,"position":"absolute"})
   $('#wrapper').append($points)
 }
 
@@ -142,8 +142,8 @@ function createRock(id){
   }
 
 	this.speed = 3;
-	this.width = 20;
-	this.height = 20;
+	this.width = 25;
+	this.height = 25;
 	this.left = positionArray[0];
 	this.top = positionArray[1];
 	this.id = id;
