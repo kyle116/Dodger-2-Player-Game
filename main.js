@@ -255,11 +255,11 @@ function blockade() {
 	var height3 = player2.height;
 
   //blocks player 1 from moving outside of game
-	if(left1 + player.width >= elemLeft+elemWidth){
-		player.left = elemWidth - player.width;
+	if(left1 + player.width >= elemLeft+elemWidth -10){
+		player.left = elemWidth - player.width - 10;
 	}
-	if(top1 + player.height >= elemTop){
-		player.top = elemTop - player.height;
+	if(top1 + player.height >= elemTop -10){
+		player.top = elemTop - player.height - 10;
 	}
 	if(top1 < 3){
 		player.top = 3;
@@ -268,11 +268,11 @@ function blockade() {
 		player.left = 3;
 	}
 	//blocks player 2 from moving outside of game
-	if(left3 + player2.width >= elemLeft+elemWidth){
-		player2.left = elemWidth - player2.width;
+	if(left3 + player2.width >= elemLeft+elemWidth -10){
+		player2.left = elemWidth - player2.width -10;
 	}
-	if(top3 + player2.height >= elemTop){
-		player2.top = elemTop - player2.height;
+	if(top3 + player2.height >= elemTop -10){
+		player2.top = elemTop - player2.height -10;
 	}
 	if(top3 < 3){
 		player2.top = 3;
@@ -283,10 +283,10 @@ function blockade() {
 
   // collision for points
   for(var i = 0; i < pointArray.length; i++){
-		var left2 = pointArray[i].left;
+		var left2 = pointArray[i].left-8;
 		var right2 = pointArray[i].left+pointArray[i].width;
-		var top2 = parseInt(pointArray[i].top);
-		var bottom2 = pointArray[i].top+pointArray[i].height;
+		var top2 = parseInt(pointArray[i].top)-6;
+		var bottom2 = pointArray[i].top+pointArray[i].height+3;
 		if(right1>left2 && left1<right2 && top1<bottom2 && bottom1>top2 || left1<left2 && right1>right2 && top1<top2 && bottom1>bottom2){ // left touches right || right touches left
 			remove(i);
       player1Score += 1
@@ -295,10 +295,10 @@ function blockade() {
 		}
 	}
 	for(var i = 0; i < pointArray.length; i++){
-		var left2 = pointArray[i].left;
+		var left2 = pointArray[i].left-8;
 		var right2 = pointArray[i].left+pointArray[i].width;
-		var top2 = parseInt(pointArray[i].top);
-		var bottom2 = pointArray[i].top+pointArray[i].height;
+		var top2 = parseInt(pointArray[i].top)-6;
+		var bottom2 = pointArray[i].top+pointArray[i].height+3;
 		if(right3>left2 && left3<right2 && top3<bottom2 && bottom3>top2 || left3<left2 && right3>right2 && top3<top2 && bottom3>bottom2){
 			remove(i);
       player2Score += 1
@@ -346,9 +346,9 @@ function rockCollision() {
 
   // collision for rocks with players
   for(var i = 0; i < rockArray.length; i++){
-		var leftRo = parseInt($rock[i].style.left);
+		var leftRo = parseInt($rock[i].style.left)-18;
 		var rightR = parseInt($rock[i].style.left)+rockArray[i].width;
-		var topRo = parseInt($rock[i].style.top);
+		var topRo = parseInt($rock[i].style.top)-18;
 		var bottomR = parseInt($rock[i].style.top)+rockArray[i].height;
     // console.log(rightP1>leftR && leftP1<rightR && topP1<bottomR && bottomP1>topR || leftP1<leftR && rightP1>rightR && topP1<topR && bottomP1>bottomR);
 		if(leftRo<rightP1 && rightR>leftP1 && bottomR>topP1 && topRo<bottomP1 || leftRo>leftP1 && rightR<rightP1 && topRo>topP1 && bottomR<bottomP1){
@@ -358,9 +358,9 @@ function rockCollision() {
 		}
 	}
 	for(var i = 0; i < rockArray.length; i++){
-    var leftRo = parseInt($rock[i].style.left);
+    var leftRo = parseInt($rock[i].style.left)-18;
 		var rightR = parseInt($rock[i].style.left)+rockArray[i].width;
-		var topRo = parseInt($rock[i].style.top);
+		var topRo = parseInt($rock[i].style.top)-18;
 		var bottomR = parseInt($rock[i].style.top)+rockArray[i].height;
 		if(leftRo<rightP2 && rightR>leftP2 && bottomR>topP2 && topRo<bottomP2 || leftRo>leftP2 && rightR<rightP2 && topRo>topP2 && bottomR<bottomP2){
       $('#ps2').text("DEAD Player 2 Score: " + player2Score)
