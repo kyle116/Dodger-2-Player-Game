@@ -12,7 +12,7 @@ update();
 var player;
 var player2;
 function initiate(){
-	player = new createPlayer(300,300,"player1","relative","blue",false); // (spawn points, player, relative position, player color)
+	player = new createPlayer(300,300,"player1","relative","dodgerblue",false); // (spawn points, player, relative position, player color)
 	player2 = new createPlayer(675,300,"player2","relative","green",false);
   $('.overlay').hide()
 }
@@ -53,7 +53,7 @@ function createPlayer(l,t,id,pos,color,boo){
   this.color = color;
   this.reader = boo;
 	$user = $("<div id=" + id + "/>")
-		.css({"border":"1px solid " + color,"height":this.height,"width":this.width,"left":this.left,"top":this.top,"position":pos})
+		.css({"border":"5px solid " + color,"height":this.height,"width":this.width,"left":this.left,"top":this.top,"position":pos})
   $('#wrapper').append($user);
 }
 
@@ -65,7 +65,7 @@ function point(id){ //something about this function spawns the yellow dots but s
 	this.width = 10;
 	this.height = 10;
   $points = $("<div class=point/>")
-    .css({"border":"1px solid yellow","height":"20px","width":"20px","left":this.left,"top":this.top,"position":"absolute"})
+    .css({"border":"5px solid yellow","height":"20px","width":"20px","left":this.left,"top":this.top,"position":"absolute"})
   $('#wrapper').append($points)
 }
 
@@ -207,7 +207,7 @@ function createRock(id){
 	this.id = id;
 
 	$rock = $("<div class=rock/>")
-		.css({"border":"1px solid red","height":this.height,"width":this.width,"left":this.left+"px","top":this.top+"px","position":"absolute"})
+		.css({"border":"5px solid red","height":this.height,"width":this.width,"left":this.left+"px","top":this.top+"px","position":"absolute"})
   $('#wrapper').append($rock);
 }
 
@@ -388,7 +388,6 @@ function clearOut() {
   rockArray = [];
   clearInterval(pointInterval);
   clearInterval(rockInterval);
-
 }
 
 function restart() {
@@ -405,8 +404,8 @@ function restart() {
 
   $('#ps1').text("Player 1 Score: " + player1Score);
   $('#ps2').text("Player 2 Score: " + player2Score);
-  $('#player1').css({ "height": player.height, "width":player.width, "border":"1px solid " + player.color, "left":player.left,"top":player.top});
-  $('#player2').css({ "height": player2.height, "width":player2.width, "border":"1px solid " + player2.color, "left":player2.left,"top":player2.top});
+  $('#player1').css({ "height": player.height, "width":player.width, "border":"5px solid " + player.color, "left":player.left,"top":player.top});
+  $('#player2').css({ "height": player2.height, "width":player2.width, "border":"5px solid " + player2.color, "left":player2.left,"top":player2.top});
   $('.rock').remove();
   $('.point').remove();
 
@@ -441,11 +440,3 @@ window.onkeyup = function(page){
 //page (the parameter) defines what key is pressed from global window
 //page.keyCode will return number and will determine array position. page.type will return "keydown" and just check if its true
 //this will in turn return if the key was true or not in the if statement about. if true, then move player accordingly
-
-
-
-// function getTheStyle(id,styleProperty){
-//     var elem = document.getElementById(id);
-//     var theCSSprop = window.getComputedStyle(elem,null).getPropertyValue(styleProperty);
-// 	return theCSSprop;
-//   }
