@@ -12,7 +12,6 @@ html, body {   height: 100%; overflow: hidden}
 	border:1px solid lime;
 	background-color:black;
   display: inline-block;
-  /*background-image: url('https://www.xmple.com/wallpaper/graph-paper-black-green-grid-7680x4320-c2-000000-00ff00-l2-4-120-a-0-f-20.svg');*/
   background-size: 200%;
 }
 
