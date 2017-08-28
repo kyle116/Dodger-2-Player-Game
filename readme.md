@@ -1,4 +1,4 @@
-# [Dodger](https://kyle116.github.io/project1/)
+# [Dodger](https://kyle116.github.io/Dodger-2-Player-Game/)
 ___
 
 # 2-Player Head to Head game
@@ -11,7 +11,7 @@ Player 1 uses WASD keys to control and Player 2 uses arrow keys to control
 
 Collect as many points possible without getting hit by the moving rocks
 
-Play Game [HERE](https://kyle116.github.io/project1/)
+Play Game [HERE](https://kyle116.github.io/Dodger-2-Player-Game/)
 
 ---
 
@@ -26,6 +26,7 @@ Digital-7 Font from [1001fonts.com](http://www.1001fonts.com/digital-7-font.html
 ### Approach Taken
 
 + Started with object prototypes for players, rocks, and points
++ Created a movement logic
 + Created a collision detection for game area
 + Created collision detection for points and rocks
 + Points based on player collision with point box

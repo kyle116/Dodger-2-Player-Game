@@ -89,16 +89,20 @@ function createRock(id){
 
   leftRight.push(randRight, randLeft)
   topBottom.push(randTop, randBot)
+
   function rand01() {
     return Math.round(Math.random())
   }
-  positionArray.push(leftRight[rand01()],topBottom[rand01()])
+
+	positionArray.push(leftRight[rand01()],topBottom[rand01()])
   clone = positionArray[rand01()]
-  if (clone === positionArray[0]) {
+
+	if (clone === positionArray[0]) {
     positionArray.splice(1, 1)
     positionArray.push(topPos)
   }
-  if (clone === positionArray[1]) {
+
+	if (clone === positionArray[1]) {
     positionArray.splice(0, 1)
     positionArray.unshift(leftPos)
   }
